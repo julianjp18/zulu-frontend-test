@@ -1,5 +1,5 @@
 # zulu-frontend-test
-This project are created with Vite.
+This project is created with love by Vite.
 
 ### Install packages ```npm install```
 ### Development mode ```npm run dev```
