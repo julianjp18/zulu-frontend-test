@@ -4,6 +4,7 @@ import './ProductItem.scss';
 import { ProductI } from '../../../services/FakeStoreService/FakeStoreService.utils';
 import Divider from '../../Atoms/Divider/Divider';
 import { Link } from 'react-router-dom';
+import { Rate } from 'antd';
 
 interface ProductItemI {
     product: ProductI;
@@ -14,7 +15,8 @@ const ProductItem = ({ product }: ProductItemI) => {
         title,
         image,
         price,
-        category
+        category,
+        rating,
     } = product;
 
     return (
@@ -31,6 +33,10 @@ const ProductItem = ({ product }: ProductItemI) => {
                             </div>
                             <div className="product-item-extra-info">
                                 <p className="category-text">{category}</p>
+                                <div className='rate-container'>
+                                    <Rate value={rating.rate} disabled allowHalf />
+                                    {rating.rate ? <span className="ant-rate-text">{rating.rate}</span> : ''}
+                                </div>
                             </div>
                     </div>
             <Divider />

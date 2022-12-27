@@ -58,20 +58,32 @@ const ProductSearchList = () => {
     const searchOnClick = async (value: string) => {
         if (value) {
             const productId = value.split('--')[0];
-            const response = await FakeStoreService.getProductById(Number.parseInt(productId));
-            if (response.statusCode === 200 && response.data) {
-                setProductToShow(response.data);
+            if (Number.parseInt(productId)) {
+                const response = await FakeStoreService.getProductById(Number.parseInt(productId));
+                if (response.statusCode === 200 && response.data) {
+                    setProductToShow(response.data);
+                }
+            } else {
+                navigate('/');
             }
+        } else {
+            navigate('/');
         }
     };
 
     const searchOnSelect = async (value: string) => {
         if (value) {
-            const productId = value.split('--')[0];
-            const response = await FakeStoreService.getProductById(Number.parseInt(productId));
-            if (response.statusCode === 200 && response.data) {
-                setProductToShow(response.data);
-            }
+                const productId = value.split('--')[0];
+                if (Number.parseInt(productId)) {
+                    const response = await FakeStoreService.getProductById(Number.parseInt(productId));
+                    if (response.statusCode === 200 && response.data) {
+                        setProductToShow(response.data);
+                    }
+                } else {
+                    navigate('/');
+                }
+        } else {
+            navigate('/');
         }
     };
 

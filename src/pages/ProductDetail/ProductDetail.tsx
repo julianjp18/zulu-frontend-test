@@ -19,7 +19,6 @@ const ProductDetail = () => {
     const [productsList, setProductsList] = useState<ProductI[]>([]);
     const [productToShow, setProductToShow] = useState<ProductI>();
     const navigate = useNavigate();
-    
     useEffect(() => {
         if (productsList.length === 0) {
             getProductsList();
@@ -36,22 +35,26 @@ const ProductDetail = () => {
 
     const getProductById = async () => {
         const response = await FakeStoreService.getProductById(Number.parseInt(`${id}`));
-        if (response.statusCode === 200 && response.data) {
+        if (response.statusCode === 200 && response.data && Number.parseInt(`${id}`)) {
             setProductToShow(response.data[0]);
             setBreadcrumb([
                 ...INIT_BREADCRUMB,
                 { text: response.data[0].category},
                 { text: response.data[0].title},
             ])
+        } else {
+            navigate('/');
         }
     };
 
     const searchOnClick = async (value: string) => {
-        if (value) {
+        if (value && Number.parseInt(`${id}`)) {
             const response = await FakeStoreService.getProductById(Number.parseInt(`${id}`));
             if (response.statusCode === 200 && response.data) {
                 setProductToShow(response.data[0]);
             }
+        } else {
+            navigate('/');
         }
     };
 
@@ -85,6 +88,7 @@ const ProductDetail = () => {
                                 </div>
                             </div>
                             <div className="main-description-container">
+                                <span className="main-category">{productToShow.category}</span>
                                 <h1 className="main-title">{productToShow.title}</h1>
                                 <h2 className="main-price">$ {productToShow.price}</h2>
                                 <div className="buy-button-container">
